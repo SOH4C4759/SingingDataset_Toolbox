@@ -14,6 +14,7 @@ class PreProcess(object):
         pass
 
     # TODO 人声音色自动分类
+    # 角色分类 有一些开源模型 speaker verification 比如 wenet
 
     # TODO 语种检测
 
