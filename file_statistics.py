@@ -4,7 +4,7 @@ import numpy as np
 import librosa
 
 # 定义要遍历的目录地址
-directory = r"D:\FileBackup\SoundTest\SingerAudio"
+directory = r"D:\FileBackup\SoundTest\SingerAudio\SingerAudio_DryVocalOnly\Nikki Singer"
 
 # 定义变量
 file_count = 0
