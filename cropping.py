@@ -1,46 +1,52 @@
+import os
 import librosa
 import numpy as np
+import soundfile as sf
+from pydub import AudioSegment
+from pydub.silence import split_on_silence
 
-# 加载音频文件
-audio, sr = librosa.load('audio_file.wav')
 
-# 计算音频信号的过零率和短时能量
-zero_crossings = librosa.zero_crossings(audio)
-energy = librosa.feature.rms(audio)
+class Cropping:
+    def __init__(self, audio_path, path):
+        # 加载音频文件
+        sound = AudioSegment.from_wav(audio_path)
+        loudness = round(sound.dBFS, 2)
+        print("-----------------------")
+        print(f"该音频响度为：{loudness}")
 
-# 调整能量门限，以便识别语音段和静音段
-threshold_ratio = 0.5
-threshold = np.max(energy) * threshold_ratio
+        # 第一个参数为待分割音频，第二个为多少秒“没声”代表沉默，第三个为分贝小于多少dBFS时代表沉默，第四个为为截出的每个音频添加多少ms无声
+        chunks = split_on_silence(sound,
+                                  # must be silent for at least half a second,沉默半秒
+                                  min_silence_len=500,
+                                  # consider it silent if quieter than -16 dBFS
+                                  silence_thresh=-50,
+                                  keep_silence=500
+                                  )
+        print('总分段：', len(chunks))
 
-# 根据能量门限和最大静音长度，识别静音段和语音段
-max_silence_length = 1.0
-max_silence_samples = int(max_silence_length * sr)
-segments = []
-start = None
-for i in range(len(audio)):
-    if energy[0, i] > threshold:
-        if start is None:
-            start = i
-        elif i - start > max_silence_samples:
-            segments.append((start, i))
-            start = i
-    else:
-        if start is not None and i - start > max_silence_samples:
-            segments.append((start, i))
-            start = None
-if start is not None:
-    segments.append((start, len(audio)))
+        # 放弃长度小于2秒的录音片段
+        for i in list(range(len(chunks)))[::-1]:
+            if len(chunks[i]) <= 1000 or len(chunks[i]) >= 20000:
+                chunks.pop(i)
+        print('取有效分段(大于2s小于20s)：', len(chunks))
 
-# 根据片段最小长度，过滤掉过短的片段
-min_segment_length = 0.5
-min_segment_samples = int(min_segment_length * sr)
-segments = [s for s in segments if s[1] - s[0] >= min_segment_samples]
+        for i, chunk in enumerate(chunks):
+            # 获取文件名和扩展名
+            file_name, file_ext = os.path.splitext(os.path.basename(file_path))
+            print(f"写入文件：{file_name}_{i}.wav")
+            new_file_path = os.path.join(path, f'{file_name}_{i}.wav')
+            chunk.export(new_file_path, format="wav")
 
-# 迭代遍历每个片段，将其保存为新的音频文件
-for i, segment in enumerate(segments):
-    # 获取每个片段的起始和结束位置
-    start = segment[0]
-    end = segment[1]
-    # 将该片段保存为独立的音频文件
-    segment_audio = audio[start:end]
-    librosa.output.write_wav(f'segment_{i}.wav', segment_audio, sr)
+
+if __name__ == "__main__":
+    path = r"D:\FileBackup\SoundTest\SingerAudio\SingerAudio_DryVocalOnly\Nikki Singer\#003 宝藏 - 副本"
+    # 获取目标目录下所有文件和子目录
+    for root, dirs, files in os.walk(path):
+        # 遍历所有文件
+        for file in files:
+            # 如果文件是wav文件
+                # 获取文件的绝对路径
+                file_path = os.path.join(root, file)
+                # 自动剪切与删除静音
+                assert Cropping(file_path, path)
+                os.remove(file_path)
