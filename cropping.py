@@ -31,6 +31,8 @@ class Cropping:
         print('取有效分段(大于2s小于20s)：', len(chunks))
 
         # TODO 分段弃用率&总时长弃用率
+        # TODO 运行耗时
+        # TODO 多线程优化
 
         for i, chunk in enumerate(chunks):
             # 获取文件名和扩展名
