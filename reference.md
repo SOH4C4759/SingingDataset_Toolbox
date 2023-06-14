@@ -3,6 +3,7 @@
 https://github.com/search?q=singer+Classification&type=repositories
 https://github.com/resemble-ai/Resemblyzer
 
+
 #### audio to midi
 https://github.com/SOH4C4759/midi2audio
 https://github.com/NFJones/audio-to-midi
@@ -24,3 +25,4 @@ https://openai.com/research/whisper
 
 #### 音频处理库
 https://zhuanlan.zhihu.com/p/509839164
+
