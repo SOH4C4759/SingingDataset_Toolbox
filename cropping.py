@@ -30,6 +30,8 @@ class Cropping:
                 chunks.pop(i)
         print('取有效分段(大于2s小于20s)：', len(chunks))
 
+        # TODO 分段弃用率&总时长弃用率
+
         for i, chunk in enumerate(chunks):
             # 获取文件名和扩展名
             file_name, file_ext = os.path.splitext(os.path.basename(file_path))
@@ -39,7 +41,7 @@ class Cropping:
 
 
 if __name__ == "__main__":
-    path = r"D:\FileBackup\SoundTest\SingerAudio\SingerAudio_DryVocalOnly\Nikki Singer\#003 宝藏 - 副本"
+    path = r"D:\FileBackup\SoundTest\SingerAudio\SingerAudio_DryVocalOnly\Nikki Singer"
     # 获取目标目录下所有文件和子目录
     for root, dirs, files in os.walk(path):
         # 遍历所有文件
