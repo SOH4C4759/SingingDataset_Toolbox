@@ -43,7 +43,7 @@ class Cropping:
 
 
 if __name__ == "__main__":
-    path = r"D:\FileBackup\SoundTest\SingerAudio\SingerAudio_DryVocalOnly\Nikki Singer"
+    path = r"D:\FileBackup\SoundTest\SingerAudio\SingerAudio_DryVocalOnly\vo_nikki"
     # 获取目标目录下所有文件和子目录
     for root, dirs, files in os.walk(path):
         # 遍历所有文件
