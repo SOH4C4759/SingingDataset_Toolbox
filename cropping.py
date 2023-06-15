@@ -1,7 +1,5 @@
 import os
-import librosa
-import numpy as np
-import soundfile as sf
+
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
 
@@ -46,12 +44,15 @@ if __name__ == "__main__":
     path = input("请输入所需处理的地址：")
     # path = r"D:\FileBackup\SoundTest\SingerAudio\SingerAudio_DryVocalOnly\vo_nikki"
     # 获取目标目录下所有文件和子目录
+    assert not path.isspace()
     for root, dirs, files in os.walk(path):
         # 遍历所有文件
         for file in files:
             # 如果文件是wav文件
-                # 获取文件的绝对路径
-                file_path = os.path.join(root, file)
-                # 自动剪切与删除静音
-                assert Cropping(file_path, path)
-                os.remove(file_path)
+            # 获取文件的绝对路径
+            file_path = os.path.join(root, file)
+            # 自动剪切与删除静音
+            assert Cropping(file_path, path)
+            os.remove(file_path)
+
+    os.system("pause")
