@@ -48,7 +48,7 @@ def delete_folders(path):
 if __name__ == "__main__":
     # 初始化计数器为1
     rename_wav_files.counter = 1
-    path = r"D:\FileBackup\SoundTest\SingerAudio\SingerAudio_DryVocalOnly_副本\SingerAudio_DryVocalOnly\Nikki Singer"
+    path = input("请输入所需处理的地址：")
     folders = list_folders(path)
     for folder in folders:
         assert rename_wav_files(folder)

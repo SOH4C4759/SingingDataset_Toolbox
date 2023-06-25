@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
 
@@ -43,7 +42,7 @@ class Cropping:
 
 if __name__ == "__main__":
     path = input("请输入所需处理的地址：")
-    # path = r"D:\FileBackup\SoundTest\SingerAudio\SingerAudio_DryVocalOnly\vo_nikki"
+
     # 获取目标目录下所有文件和子目录
     assert not path.isspace()
     for root, dirs, files in os.walk(path):

@@ -14,7 +14,7 @@ def get_audio_files(directory):
     return audio_files
 
 
-directory = r"D:\FileBackup\SoundTest\SingerAudio\SingerAudio_DryVocalOnly\singer1 - 副本"
+directory = input("请输入所需处理的地址：")
 audio_files_list = get_audio_files(directory)
 
 predict_and_save(audio_path_list=audio_files_list,output_directory=directory, save_midi=True, save_model_outputs=True,

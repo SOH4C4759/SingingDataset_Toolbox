@@ -1,10 +1,9 @@
 import os
-import glob
 import numpy as np
 import librosa
 
 # 定义要遍历的目录地址
-directory = r"D:\FileBackup\SoundTest\SingerAudio\SingerAudio_DryVocalOnly\Nikki Singer_2"
+directory = input("请输入所需处理的地址：")
 
 # 定义变量
 file_count = 0
