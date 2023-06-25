@@ -59,7 +59,7 @@ def extract_features(wav_files: list[str]):
         librosa.display.specshow(librosa.power_to_db(np.abs(librosa.stft(y)), ref=np.max), y_axis='log', x_axis='time',
                                  sr=sr, fmax=24000, ax=ax0)
         ax0.set_title('Spectrum graph')
-        ax0.set_ylabel('Frequency (kHz)')
+        ax0.set_ylabel('Frequency (Hz)')
         ax0.set_xticks([])
         ax1 = fig.add_subplot(gs[1])
         librosa.display.waveshow(y, sr=sr, ax=ax1)
